@@ -4,6 +4,7 @@ from pathlib import Path
 class Macros():
     def __init__(self, folder: str):
         self.folder: Path = Path(folder)
+        self.folder.mkdir(exist_ok=True, parents=True)
         self.macros: list[str] = list()
         # load macro files 
         for file in self.folder.glob('*.macro'):
