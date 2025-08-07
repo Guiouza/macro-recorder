@@ -1,17 +1,20 @@
 from tkinter import Scrollbar, Listbox
-from tkinter.ttk import Frame
+from tkinter.ttk import LabelFrame
 
 
-class ScrolledListBox(Frame):
+class ScrolledListBox(LabelFrame):
     def __init__(self, master) -> None:
         """Create ListBox and Scrollbar"""
         self.search_list = list()
-        super().__init__(master)
+        super().__init__(master, text="Macros")
         self.scrollbar = Scrollbar(self)
         self.listbox = Listbox(
             self, selectmode="browse", yscrollcommand=self.scrollbar.set
         )
         self.scrollbar.config(command=self.listbox.yview)
+        self.create_widgets()
+
+    def create_widgets(self):
         self.listbox.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
 
@@ -28,12 +31,16 @@ class ScrolledListBox(Frame):
         for text in text_list:
             self.listbox.insert("end", text)
         self.search_list = text_list.copy()
-    
+
     def append(self, text: str) -> None:
         self.listbox.insert("end", text)
         self.search_list.append(text)
-    
+
     def remove(self, text: str) -> None:
         index = self.search_list.index(text)
         self.listbox.delete(index)
         self.search_list.remove(text)
+
+    def clear(self):
+        self.listbox.delete(0, "end")
+        self.search_list.clear()

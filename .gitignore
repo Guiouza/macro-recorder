@@ -2,3 +2,4 @@
 .vscode
 mise.toml
 __pycache__
+build
