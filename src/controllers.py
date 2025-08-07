@@ -1,4 +1,5 @@
-from tkinter import Label, Tk
+from threading import Thread
+from tkinter import Tk
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showerror
 
@@ -25,7 +26,6 @@ class MenuController:
         def wrapper(self, *args, **kwargs):
             macro_name = self.list_of_macros.get_selection()
             if macro_name is None:
-                print("No selection")
                 return  # if not select do nothing
             return method(self, macro_name, *args, **kwargs)
         return wrapper
@@ -92,7 +92,7 @@ class MenuController:
         result = askplayeroptions(self.window)
         if result is None:
             return
-        self.player.start(*result)
+        Thread(target=self.player.start, args=result).start()
 
     @with_selection
     def select(self, macro_name: str) -> None:
