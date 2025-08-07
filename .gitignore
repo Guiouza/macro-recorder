@@ -1,3 +1,4 @@
 # Editor
 .vscode
 mise.toml
+__pycache__
